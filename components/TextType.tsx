@@ -51,6 +51,7 @@ const TextType = ({
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(!startOnVisible);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const cursorRef = useRef<HTMLSpanElement>(null);
   const containerRef = useRef<HTMLElement>(null);
 
@@ -66,6 +67,22 @@ const TextType = ({
     if (textColors.length === 0) return "#ffffff";
     return textColors[currentTextIndex % textColors.length];
   };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    updateMotionPreference();
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", updateMotionPreference);
+      return () => mediaQuery.removeEventListener("change", updateMotionPreference);
+    }
+
+    mediaQuery.addListener(updateMotionPreference);
+    return () => mediaQuery.removeListener(updateMotionPreference);
+  }, []);
 
   useEffect(() => {
     if (!startOnVisible || !containerRef.current) return;
@@ -86,17 +103,26 @@ const TextType = ({
   }, [startOnVisible]);
 
   useEffect(() => {
-    if (showCursor && cursorRef.current) {
-      gsap.set(cursorRef.current, { opacity: 1 });
-      gsap.to(cursorRef.current, {
-        opacity: 0,
-        duration: cursorBlinkDuration,
-        repeat: -1,
-        yoyo: true,
-        ease: "power2.inOut",
-      });
+    const cursorElement = cursorRef.current;
+
+    if (!showCursor || !cursorElement || prefersReducedMotion) {
+      return;
     }
-  }, [showCursor, cursorBlinkDuration]);
+
+    gsap.set(cursorElement, { opacity: 1 });
+    gsap.to(cursorElement, {
+      opacity: 0,
+      duration: cursorBlinkDuration,
+      repeat: -1,
+      yoyo: true,
+      ease: "power2.inOut",
+    });
+
+    return () => {
+      gsap.killTweensOf(cursorElement);
+      gsap.set(cursorElement, { opacity: 1 });
+    };
+  }, [showCursor, cursorBlinkDuration, prefersReducedMotion]);
 
   useEffect(() => {
     if (!isVisible) return;
@@ -105,6 +131,13 @@ const TextType = ({
 
     const currentText = textArray[currentTextIndex];
     const processedText = reverseMode ? currentText.split("").reverse().join("") : currentText;
+
+    if (prefersReducedMotion) {
+      setDisplayedText(processedText);
+      setCurrentCharIndex(processedText.length);
+      setIsDeleting(false);
+      return;
+    }
 
     const executeTypingAnimation = () => {
       if (isDeleting) {
@@ -165,10 +198,14 @@ const TextType = ({
     reverseMode,
     variableSpeed,
     onSentenceComplete,
+    getRandomSpeed,
+    prefersReducedMotion,
   ]);
 
   const shouldHideCursor =
-    hideCursorWhileTyping && (currentCharIndex < textArray[currentTextIndex].length || isDeleting);
+    !prefersReducedMotion &&
+    hideCursorWhileTyping &&
+    (currentCharIndex < textArray[currentTextIndex].length || isDeleting);
 
   return createElement(
     Component,

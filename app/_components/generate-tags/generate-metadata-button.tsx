@@ -15,7 +15,7 @@ export default function GenerateMetadataButton({
     <Button
       {...props}
       className={cn(
-        "cursor-pointer bg-blue-600 text-white transition-all hover:bg-blue-500/90 active:scale-95",
+        "cursor-pointer whitespace-normal bg-blue-600 text-center text-white transition-all hover:bg-blue-500/90 active:scale-95",
         className,
       )}
     >

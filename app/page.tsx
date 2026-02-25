@@ -12,10 +12,10 @@ import { Settings } from "./_components/settings";
 
 export default function Home() {
   return (
-    <main aria-labelledby="container" className={cn("mx-auto max-w-6xl px-8 pb-12 xl:px-4")}>
+    <main aria-labelledby="container" className={cn("mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8")}>
       <Header />
-      <section className="mt-10 items-start justify-center gap-20 md:grid md:grid-cols-2">
-        <div className={cn("h-fit overflow-y-auto md:sticky md:-top-6 lg:pr-10 xl:pr-20")}>
+      <section className="mt-8 grid items-start gap-10 md:mt-10 md:grid-cols-2 md:gap-14 lg:gap-20">
+        <div className={cn("h-fit overflow-y-auto md:sticky md:top-4 lg:pr-10 xl:pr-20")}>
           <p className={"containerTitle"}>Metadata + LLM Signals</p>
           <SeoForm />
           <OfficialDebuggers />
@@ -26,7 +26,7 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <p className={"containerTitle"}>Preview + Output Pack</p>
             <GenerateTags />
           </div>

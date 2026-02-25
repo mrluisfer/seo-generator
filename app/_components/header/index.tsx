@@ -4,10 +4,11 @@ import GitHubRepository from "./github-repository";
 
 export default function Header() {
   return (
-    <header className="z-10 flex w-full items-center justify-between pt-10">
+    <header className="z-10 flex w-full flex-col items-start justify-between gap-4 pt-8 sm:flex-row sm:items-center sm:pt-10">
       <div className="flex items-center gap-3">
         <FaviconExample color="#2a81fb" className="size-12" />
         <TextType
+          id="container"
           text={"SEO Generator"}
           typingSpeed={75}
           pauseDuration={1500}
@@ -15,10 +16,10 @@ export default function Header() {
           cursorCharacter="_"
           as={"h1"}
           loop={false}
-          className="max-w-42.5 text-3xl font-bold"
+          className="max-w-[10.5rem] text-2xl font-bold sm:text-3xl"
         />
       </div>
-      <nav>
+      <nav aria-label="Repository">
         <ul>
           <li>
             <GitHubRepository />

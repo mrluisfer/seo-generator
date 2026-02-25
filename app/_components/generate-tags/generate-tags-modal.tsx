@@ -95,7 +95,7 @@ export default function GenerateTagsModal({ children }: { children: React.ReactN
   const checklistCode = getSeoChecklistMarkdown(formData);
 
   const [activeTab, setActiveTab] = React.useState<OutputTab>("html");
-  const [showReviewNotice, setShowReviewNotice] = React.useState(true);
+  const [showReviewNotice, setShowReviewNotice] = React.useState(false);
   const [showComplianceChecks, setShowComplianceChecks] = React.useState(false);
 
   const outputByTab: Record<OutputTab, string> = {
@@ -112,6 +112,8 @@ export default function GenerateTagsModal({ children }: { children: React.ReactN
   const completeChecks = checklistItems.filter((item) => item.pass).length;
   const activeTabIndex = outputTabs.findIndex((tab) => tab.value === activeTab);
   const tabPanelClassName = "mt-3 min-h-[26rem] md:min-h-[30rem]";
+  const reviewNoticeId = "review-notice-section";
+  const complianceChecksId = "compliance-checks-section";
 
   const handlePreviousTab = () => {
     if (activeTabIndex <= 0) {
@@ -140,51 +142,37 @@ export default function GenerateTagsModal({ children }: { children: React.ReactN
               <p>Generated SEO + LLM Pack</p>
             </div>
             <DialogClose asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" aria-label="Close generated output modal">
                 <XIcon />
               </Button>
             </DialogClose>
           </DialogTitle>
           <DialogDescription asChild>
             <div className="space-y-3 p-4">
-              {showReviewNotice && (
-                <Alert variant="warning" className="mb-2 items-baseline">
-                  <AlertOctagonIcon />
-                  <AlertDescription>
-                    <div className="inline-flex w-full items-center justify-between">
-                      <p>Review generated metadata, URLs and schema values before using in production.</p>
-                      <Button
-                        variant={"link"}
-                        size={"icon"}
-                        className="ml-auto"
-                        onClick={() => setShowReviewNotice(false)}
-                      >
-                        <XIcon />
-                      </Button>
-                    </div>
-                  </AlertDescription>
-                </Alert>
-              )}
               <div className="flex flex-wrap items-center gap-2">
-                {/* <Button
+                <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   className="h-8"
                   onClick={() => setShowReviewNotice((previous) => !previous)}
+                  aria-expanded={showReviewNotice}
+                  aria-controls={reviewNoticeId}
                 >
                   <ChevronDownIcon
                     size={14}
                     className={cn("transition-transform", !showReviewNotice && "-rotate-90")}
                   />
                   {showReviewNotice ? "Hide review notice" : "Show review notice"}
-                </Button> */}
+                </Button>
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   className="h-8"
                   onClick={() => setShowComplianceChecks((previous) => !previous)}
+                  aria-expanded={showComplianceChecks}
+                  aria-controls={complianceChecksId}
                 >
                   <ChevronDownIcon
                     size={14}
@@ -196,8 +184,17 @@ export default function GenerateTagsModal({ children }: { children: React.ReactN
                 </Button>
               </div>
 
+              {showReviewNotice && (
+                <Alert id={reviewNoticeId} variant="warning" className="mb-2 items-baseline">
+                  <AlertOctagonIcon />
+                  <AlertDescription>
+                    <p>Review generated metadata, URLs and schema values before using in production.</p>
+                  </AlertDescription>
+                </Alert>
+              )}
+
               {showComplianceChecks && (
-                <div className="rounded-xl border border-white/10 bg-neutral-900/70 p-3">
+                <div id={complianceChecksId} className="rounded-xl border border-white/10 bg-neutral-900/70 p-3">
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-semibold">Compliance snapshot</p>
                     <span className="text-xs text-neutral-300">
@@ -232,7 +229,7 @@ export default function GenerateTagsModal({ children }: { children: React.ReactN
                 <div className="rounded-xl border border-white/10 bg-neutral-900/50 p-3">
                   <div className="flex flex-wrap items-center gap-2">
                     <Select value={activeTab} onValueChange={(value) => setActiveTab(value as OutputTab)}>
-                      <SelectTrigger className="w-50">
+                      <SelectTrigger className="w-full sm:w-[220px]" aria-label="Select generated output view">
                         <SelectValue placeholder="Select output" />
                       </SelectTrigger>
                       <SelectContent>

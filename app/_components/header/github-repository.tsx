@@ -31,10 +31,11 @@ export default function GitHubRepository() {
       href={repository.html_url}
       target="_blank"
       rel="noreferrer"
-      className="bg-background group block max-w-[250px] rounded-md border p-2 shadow-sm transition-all hover:bg-neutral-900"
+      className="bg-background group block w-full max-w-[320px] rounded-md border p-2 shadow-sm transition-all hover:bg-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/80"
+      aria-label={`Open ${repository.name} repository on GitHub`}
     >
       <div className="flex items-center justify-between">
-        <h3 className="mb-1 flex items-center gap-1 font-semibold text-[#539BF5] group-hover:underline">
+        <h3 className="mb-1 flex items-center gap-1 truncate font-semibold text-[#539BF5] group-hover:underline">
           <GitHub />
           {repository.name}
         </h3>
@@ -54,7 +55,7 @@ export default function GitHubRepository() {
 
 function RepositoryLoader() {
   return (
-    <div className="bg-background flex w-[250px] items-center justify-center rounded-md border px-2 py-4 shadow-sm transition-all hover:bg-neutral-900">
+    <div className="bg-background flex w-full max-w-[320px] items-center justify-center rounded-md border px-2 py-4 shadow-sm transition-all hover:bg-neutral-900">
       <Loader />
     </div>
   );

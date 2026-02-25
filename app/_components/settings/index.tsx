@@ -18,7 +18,10 @@ export function Settings() {
     <Dialog>
       <div>
         <DialogTrigger asChild>
-          <Button className="cursor-pointer bg-blue-600 text-white after:flex-1 hover:bg-blue-500/90">
+          <Button
+            className="w-full cursor-pointer bg-blue-600 text-white after:flex-1 hover:bg-blue-500/90 sm:w-auto"
+            aria-haspopup="dialog"
+          >
             <span className="pointer-events-none flex-1">
               <Settings2 className="opacity-60" size={16} aria-hidden="true" />
             </span>
@@ -26,7 +29,7 @@ export function Settings() {
           </Button>
         </DialogTrigger>
       </div>
-      <DialogContent>
+      <DialogContent className="max-h-[90vh] overflow-y-auto">
         <div className="flex flex-col items-center gap-2">
           <div className="flex size-9 shrink-0 items-center justify-center rounded-full border" aria-hidden="true">
             <Settings2 className="opacity-80" size={16} />
