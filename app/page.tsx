@@ -16,7 +16,7 @@ export default function Home() {
       <Header />
       <section className="mt-10 items-start justify-center gap-20 md:grid md:grid-cols-2">
         <div className={cn("h-fit overflow-y-auto md:sticky md:-top-6 lg:pr-10 xl:pr-20")}>
-          <p className={"containerTitle"}>Metadata</p>
+          <p className={"containerTitle"}>Metadata + LLM Signals</p>
           <SeoForm />
           <OfficialDebuggers />
           <div className="mt-10">
@@ -27,7 +27,7 @@ export default function Home() {
         </div>
         <div>
           <div className="flex items-center justify-between">
-            <p className={"containerTitle"}>Preview</p>
+            <p className={"containerTitle"}>Preview + Output Pack</p>
             <GenerateTags />
           </div>
           <div className="mt-6 space-y-10">

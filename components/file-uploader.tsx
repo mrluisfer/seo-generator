@@ -2,7 +2,7 @@
 
 import { AlertCircleIcon, ImageUpIcon, XIcon } from "lucide-react";
 
-import { FileWithPreview, useFileUpload } from "@/hooks/use-file-upload";
+import { useFileUpload } from "@/hooks/use-file-upload";
 import { useSeoFormStore } from "@/store/use-seo-form-store";
 import Image from "next/image";
 import { Input } from "./ui/input";
@@ -67,7 +67,7 @@ export default function FileUploader(props: React.ComponentProps<"input">) {
               type="button"
               className="focus-visible:border-ring focus-visible:ring-ring/50 z-50 flex size-8 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white outline-none transition-[color,box-shadow] hover:bg-black/80 focus-visible:ring-[3px]"
               onClick={() => {
-                setImageFile({} as FileWithPreview);
+                setImageFile(undefined);
                 removeFile(files[0]?.id);
               }}
               aria-label="Remove image"

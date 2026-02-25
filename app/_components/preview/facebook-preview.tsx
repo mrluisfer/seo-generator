@@ -7,6 +7,8 @@ import Link from "next/link";
 
 export default function FacebookPreview() {
   const { url, title, description, imageFile } = useSeoFormStore();
+  const pageUrl = url || "#";
+  const hostname = getHostnameFromUrl(url || "") || "your-domain.com";
 
   return (
     <div>
@@ -15,7 +17,7 @@ export default function FacebookPreview() {
         Facebook
       </Label>
       <Link
-        href={url!}
+        href={pageUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="group block cursor-pointer rounded-sm border bg-neutral-800 transition hover:brightness-95"
@@ -28,7 +30,7 @@ export default function FacebookPreview() {
           height={250}
         />
         <div className="border-t px-3 py-2.5">
-          <p className="text-sm uppercase text-neutral-400">{getHostnameFromUrl(url!)}</p>
+          <p className="text-sm uppercase text-neutral-400">{hostname}</p>
           <p className="font-semibold">{title}</p>
           <p className="truncate text-sm text-neutral-400">{description}</p>
         </div>

@@ -9,6 +9,8 @@ import Link from "next/link";
 
 export default function TwitterPreview() {
   const { title, imageFile, url } = useSeoFormStore();
+  const pageUrl = url || "#";
+  const hostname = getHostnameFromUrl(url || "") || "your-domain.com";
 
   return (
     <div>
@@ -18,7 +20,7 @@ export default function TwitterPreview() {
         <Twitter />
         Twitter
       </Label>
-      <Link href={url!} target="_blank" rel="noopener noreferrer" className="group">
+      <Link href={pageUrl} target="_blank" rel="noopener noreferrer" className="group">
         <div className={cn("relative flex h-[250px] items-end rounded-2xl bg-cover bg-center bg-no-repeat p-4")}>
           <Image
             src={imageFile?.preview || "/placeholder.jpg"}
@@ -30,7 +32,7 @@ export default function TwitterPreview() {
             {title}
           </Badge>
         </div>
-        <span className="mt-1 text-xs text-neutral-400 group-hover:underline">From {getHostnameFromUrl(url!)}</span>
+        <span className="mt-1 text-xs text-neutral-400 group-hover:underline">From {hostname}</span>
       </Link>
     </div>
   );

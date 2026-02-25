@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint .",
+    "check:llm-seo": "node scripts/check-llm-seo-compliance.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",

@@ -5,8 +5,11 @@ SEO Generator is a **Next.js-based application** designed to create and preview 
 The tool enables developers and content creators to:
 
 - Input and validate SEO metadata (title, description, URL, images)
+- Add LLM-focused content context (TL;DR, Key Facts, FAQ, HowTo, references, author/dates)
 - Preview content across major platforms (Google, Twitter/X, Facebook, Slack, LinkedIn, Pinterest)
 - Generate production-ready HTML meta tags including **Open Graph** and **Twitter Card** markup
+- Generate **JSON-LD** schemas (Article, FAQ, Breadcrumbs, optional HowTo)
+- Generate crawlability artifacts snippets (`robots.txt`, `sitemap.xml`) and a compliance checklist
 - Upload and manage SEO images with drag-and-drop support
 - Maintain real-time synchronization between form inputs and platform previews
 
@@ -146,3 +149,9 @@ For implementation details, refer to:
 - [Platform Preview System]
 - [Meta Tag Generation]
 - [Architecture & Implementation]
+
+## SEO for LLMs documentation
+
+- Playbook: [`docs/seo-for-llms-playbook.md`](docs/seo-for-llms-playbook.md)
+- Review checklist: [`docs/seo-llm-review-checklist.md`](docs/seo-llm-review-checklist.md)
+- Automated check: `npm run check:llm-seo`

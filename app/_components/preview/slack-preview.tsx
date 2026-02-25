@@ -7,6 +7,7 @@ import Link from "next/link";
 
 export default function SlackPreview() {
   const { title, description, url, imageFile } = useSeoFormStore();
+  const pageUrl = url || "#";
   return (
     <div>
       <Label className="mb-6">
@@ -14,7 +15,7 @@ export default function SlackPreview() {
         Slack
       </Label>
       <Link
-        href={url!}
+        href={pageUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="group block cursor-pointer space-y-2 rounded-r-lg border-l-4 border-neutral-700 bg-neutral-900/50 p-4 pl-4"

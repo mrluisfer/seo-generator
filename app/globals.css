@@ -76,6 +76,9 @@
   --sidebar-ring: oklch(0.708 0 0);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+  --textarea-scrollbar-track: oklch(0.922 0 0 / 45%);
+  --textarea-scrollbar-thumb: oklch(0.708 0 0 / 75%);
+  --textarea-scrollbar-thumb-hover: oklch(0.556 0 0 / 88%);
 }
 
 .dark {
@@ -110,6 +113,9 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --textarea-scrollbar-track: oklch(0.269 0 0 / 65%);
+  --textarea-scrollbar-thumb: oklch(0.556 0 0 / 82%);
+  --textarea-scrollbar-thumb-hover: oklch(0.708 0 0 / 92%);
 }
 
 @layer base {
@@ -118,6 +124,33 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  textarea {
+    scrollbar-width: thin;
+    scrollbar-color: var(--textarea-scrollbar-thumb) var(--textarea-scrollbar-track);
+  }
+
+  textarea::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  textarea::-webkit-scrollbar-track {
+    background: var(--textarea-scrollbar-track);
+    border-radius: 9999px;
+  }
+
+  textarea::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--textarea-scrollbar-thumb), var(--textarea-scrollbar-thumb-hover));
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    border-radius: 9999px;
+  }
+
+  textarea:hover::-webkit-scrollbar-thumb {
+    background: var(--textarea-scrollbar-thumb-hover);
+    border: 2px solid transparent;
+    background-clip: padding-box;
   }
 }
 

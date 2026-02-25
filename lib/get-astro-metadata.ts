@@ -1,32 +1,40 @@
-import { SeoFormState } from "@/store/use-seo-form-store";
+import { buildSeoOutputContext } from "@/lib/build-seo-context";
+import { SeoFormData } from "@/store/use-seo-form-store";
 
-type MetaTagsProps = Omit<
-  SeoFormState,
-  "setTitle" | "setDescription" | "setImageFile" | "setUrl" | "getIsFormComplete"
->;
-
-export function getAstroMetadataCode(props: MetaTagsProps) {
-  const imageUrl = props.imageFile ? `/${props.imageFile.file.name}` : null;
+export function getAstroMetadataCode(props: SeoFormData) {
+  const context = buildSeoOutputContext(props);
 
   return `---
 import { defineAstroMetadata } from "astro:metadata";
 
 export const metadata = defineAstroMetadata({
-  title: "${props.title}",
-  description: "${props.description}",
-  ${props.url ? `canonical: "${props.url}",` : ""}
+  title: ${JSON.stringify(context.title)},
+  description: ${JSON.stringify(context.description)},
+  canonical: ${JSON.stringify(context.canonicalUrl ?? "")},
+  authors: [{ name: ${JSON.stringify(context.authorName)} }],
   openGraph: {
-    title: "${props.title}",
-    description: "${props.description}",
-    ${props.url ? `url: "${props.url}",` : ""}
-    ${imageUrl ? `images: ["${imageUrl}"],` : ""}
+    type: "article",
+    title: ${JSON.stringify(context.title)},
+    description: ${JSON.stringify(context.description)},
+    ${context.canonicalUrl ? `url: ${JSON.stringify(context.canonicalUrl)},` : ""}
+    siteName: ${JSON.stringify(context.siteName)},
+    publishedTime: ${JSON.stringify(context.publishedDate)},
+    modifiedTime: ${JSON.stringify(context.modifiedDate)},
+    ${context.imageUrl ? `images: [${JSON.stringify(context.imageUrl)}],` : ""}
   },
   twitter: {
     card: "summary_large_image",
-    title: "${props.title}",
-    description: "${props.description}",
-    ${imageUrl ? `images: ["${imageUrl}"],` : ""}
+    title: ${JSON.stringify(context.title)},
+    description: ${JSON.stringify(context.description)},
+    ${context.imageUrl ? `images: [${JSON.stringify(context.imageUrl)}],` : ""}
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 });
----`;
+---
+
+<!-- Add generated JSON-LD schemas in the page head -->
+`;
 }

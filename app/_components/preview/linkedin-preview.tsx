@@ -7,6 +7,8 @@ import Link from "next/link";
 
 export default function LinkedinPreview() {
   const { url, title, description, imageFile } = useSeoFormStore();
+  const pageUrl = url || "#";
+  const hostname = getHostnameFromUrl(url || "") || "your-domain.com";
 
   return (
     <div>
@@ -15,7 +17,7 @@ export default function LinkedinPreview() {
         LinkedIn
       </Label>
       <Link
-        href={url!}
+        href={pageUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="group block cursor-pointer rounded-sm border bg-neutral-800 transition hover:brightness-95"
@@ -29,7 +31,7 @@ export default function LinkedinPreview() {
         />
         <div className="border-t px-3 py-2.5" title={description}>
           <p>{title}</p>
-          <p className="text-xs uppercase text-neutral-400">{getHostnameFromUrl(url!)}</p>
+          <p className="text-xs uppercase text-neutral-400">{hostname}</p>
         </div>
       </Link>
     </div>

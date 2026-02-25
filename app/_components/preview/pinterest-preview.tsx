@@ -6,6 +6,7 @@ import Link from "next/link";
 
 export default function PinterestPreview() {
   const { title, url, imageFile } = useSeoFormStore();
+  const pageUrl = url || "#";
 
   return (
     <div>
@@ -13,7 +14,7 @@ export default function PinterestPreview() {
         <Pinterest />
         Pinterest
       </Label>
-      <Link href={url!} target="_blank" rel="noopener noreferrer" className="group block w-[300px]">
+      <Link href={pageUrl} target="_blank" rel="noopener noreferrer" className="group block w-[300px]">
         <div className="relative h-[200px] w-[300px]">
           <Image src={imageFile?.preview || "/placeholder.jpg"} alt="Pinterest Preview" fill className="rounded-md" />
         </div>

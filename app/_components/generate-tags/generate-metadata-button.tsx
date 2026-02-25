@@ -19,7 +19,7 @@ export default function GenerateMetadataButton({
         className,
       )}
     >
-      Generate Metadata
+      Generate SEO + LLM Pack
       <ArrowRightIcon size={16} aria-hidden="true" />
     </Button>
   );

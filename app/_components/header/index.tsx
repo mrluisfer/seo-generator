@@ -15,7 +15,7 @@ export default function Header() {
           cursorCharacter="_"
           as={"h1"}
           loop={false}
-          className="max-w-[170px] text-3xl font-bold"
+          className="max-w-42.5 text-3xl font-bold"
         />
       </div>
       <nav>
