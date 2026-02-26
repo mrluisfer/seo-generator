@@ -4,7 +4,8 @@
   "private": false,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
+    "build:turbopack": "next build --turbopack",
     "start": "next start",
     "lint": "eslint .",
     "check:llm-seo": "node scripts/check-llm-seo-compliance.mjs"
