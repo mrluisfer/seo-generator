@@ -1,0 +1,49 @@
+# head
+
+> A browser-based editor that turns a page's facts into search and social
+> metadata, then exports it as code for nine frameworks. Free, open source
+> (MIT), no account, and it runs entirely in the browser.
+
+head keeps a page's metadata as one document and compiles it to each
+framework's own idiom rather than emitting the same HTML in a wrapper.
+
+## What it produces
+
+- **HTML** — plain `<meta>`, `<link>` and JSON-LD for any stack.
+- **Next.js** — the App Router Metadata API, including the separate `viewport`
+  export that `themeColor` requires, and a `generateMetadata` variant.
+- **SvelteKit** — a `<svelte:head>` block.
+- **Astro** — frontmatter plus `set:html` for JSON-LD.
+- **React Helmet** — a component for `react-helmet-async`.
+- **Nuxt** — a `useHead` call.
+- **React Router** — a `meta` export, also valid in Remix v2.
+- **JSON** — the raw document, re-importable.
+
+## What makes it different
+
+- **Measures in pixels, not characters.** Search results truncate by rendered
+  width, so a character count is a poor proxy. head measures the string against
+  ~600px for a title and ~920px for a description, and shows the exact text that
+  survives truncation.
+- **Twelve schema.org types** compiled into a single `@graph`: Organization,
+  WebSite, Article, Product, BreadcrumbList, FAQPage, LocalBusiness, Person,
+  Event, SoftwareApplication, VideoObject, HowTo. Empty blocks are dropped.
+- **Findings, not a checklist.** Every check names the consequence and the one
+  field that clears it; a check that cannot be resolved is not shown.
+- **Per-platform social previews** for X, Facebook, LinkedIn, Slack and
+  WhatsApp, reproducing each platform's own card layout. X reads `twitter:*`
+  tags; the rest read `og:*`.
+
+## Privacy
+
+The document is stored in the browser's local storage and never uploaded. AI
+drafting is optional, uses a key you supply, and sends only the brief you wrote
+through a proxy that uses the key once and never stores it. Images chosen for
+preview never leave the browser.
+
+## Links
+
+- Editor: https://seo-generator.vercel.app/
+- About: https://seo-generator.vercel.app/about
+- Source: https://github.com/mrluisfer/seo-generator
+- Architecture: https://github.com/mrluisfer/seo-generator/blob/main/docs/ARCHITECTURE.md

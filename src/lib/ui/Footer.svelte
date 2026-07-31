@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Wordmark from './Wordmark.svelte';
+	import { resolve } from '$app/paths';
 	import { REPO_URL, type RepoStats } from '$lib/github';
 
 	/**
@@ -8,6 +9,10 @@
 	 * first and reference docs second.
 	 */
 	const GROUPS = [
+		{
+			label: 'Project',
+			links: [{ text: 'About', href: '/about', internal: true }]
+		},
 		{
 			label: 'Validate',
 			links: [
@@ -100,10 +105,14 @@
 				<ul>
 					{#each group.links as link (link.href)}
 						<li>
-							<!-- Every href is an absolute external URL from the constant above, so
-							     these leave the app entirely and are not router navigations. -->
-							<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-							<a href={link.href} target="_blank" rel="noreferrer noopener">{link.text}</a>
+							{#if 'internal' in link && link.internal}
+								<a href={resolve(link.href as '/about')}>{link.text}</a>
+							{:else}
+								<!-- Absolute external URLs from the constant above: these leave the
+								     app entirely and are not router navigations. -->
+								<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+								<a href={link.href} target="_blank" rel="noreferrer noopener">{link.text}</a>
+							{/if}
 						</li>
 					{/each}
 				</ul>

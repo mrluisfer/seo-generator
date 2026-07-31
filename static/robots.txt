@@ -1,3 +1,11 @@
-# allow crawling everything by default
+# Everything here is public and safe to index.
 User-agent: *
-Disallow:
+Allow: /
+
+# The BYOK proxy and the stats endpoint take no useful query and return no
+# content worth indexing. Excluding them keeps crawl budget on the pages.
+Disallow: /api/
+
+# Answer engines read this for a plain-text summary of what the site is.
+# https://llmstxt.org
+Sitemap: https://seo-generator.vercel.app/sitemap.xml

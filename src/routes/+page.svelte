@@ -8,6 +8,8 @@
 
 	import Section from '$lib/ui/Section.svelte';
 	import Chips from '$lib/ui/Chips.svelte';
+	import SeoHead from '$lib/ui/SeoHead.svelte';
+	import { homeDocument } from '$lib/seo/site';
 	import Field from '$lib/ui/Field.svelte';
 	import ImageField from '$lib/ui/ImageField.svelte';
 	import TagInput from '$lib/ui/TagInput.svelte';
@@ -70,7 +72,12 @@
 	const TWITTER_CARDS = ['summary_large_image', 'summary', 'player', 'app'] as const;
 </script>
 
+<SeoHead doc={homeDocument()} />
+
 <main class="workspace">
+	<!-- Visually hidden: the header wordmark already carries the name on screen,
+	     but the page had no heading at all for search or screen readers. -->
+	<h1 class="sr-only">head — an SEO metadata editor for developers</h1>
 	<div class="editor scroll-area">
 		<div class="sections-bar">
 			<span class="eyebrow">Sections</span>
@@ -479,6 +486,19 @@
 
 	.side-panel {
 		padding: 14px 15px;
+	}
+
+	/* Present for search engines and screen readers, absent on screen. */
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		border: 0;
 	}
 
 	/* Mirrors the section header rhythm so the toggle reads as part of the list. */

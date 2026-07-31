@@ -4,7 +4,7 @@ The shape of this codebase follows from one decision: **a page's metadata is a
 single document, and everything else is a pure function of it.** Editing,
 linting, previewing and exporting are all readers of the same object.
 
-```
+```bash
                     ┌──────────────────┐
                     │   SeoDocument    │   src/lib/seo/types.ts
                     └────────┬─────────┘

@@ -38,12 +38,6 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>Head — an SEO metadata editor</title>
-	<meta
-		name="description"
-		content="Write a page's search and social metadata once, then export it as HTML, Next.js, SvelteKit, Astro, Nuxt, or React Router code."
-	/>
-	<meta name="robots" content="noindex" />
 </svelte:head>
 
 <!--
