@@ -9,6 +9,10 @@
 	import { ui } from '$lib/state/ui.svelte';
 	import type { AiDraft, Brief } from '$lib/ai/contract';
 	import type { Snippet } from 'svelte';
+	import { dev } from '$app/environment';
+	import { injectAnalytics } from '@vercel/analytics/sveltekit';
+
+	injectAnalytics({ mode: dev ? 'development' : 'production' });
 
 	let { children }: { children: Snippet } = $props();
 
