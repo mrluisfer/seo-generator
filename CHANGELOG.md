@@ -36,3 +36,9 @@ Notable changes to this project. The format follows
   grid's implicit row was auto-sized.
 - Visually hidden inputs escaped their containing block and stretched the
   document height.
+- JSON-LD was injected with an over-escaped closing tag, so the script element
+  never closed and swallowed the rest of the head.
+- Deploys failed on Vercel because `adapter-auto` resolved its platform adapter
+  at build time into a tree where a CommonJS require of `estree-walker` hit the
+  ESM-only v3. The adapter is now named explicitly, which also makes it run
+  during local and CI builds instead of silently doing nothing.
