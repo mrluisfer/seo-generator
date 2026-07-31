@@ -1,0 +1,481 @@
+@import 'tailwindcss';
+
+@import '@fontsource-variable/ibm-plex-sans';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+/*
+  One superfamily, no accent hue.
+
+  The only color in this interface is the validation signal. Everything else is
+  ink on paper, so when something turns green or amber it means something.
+*/
+
+@theme {
+	--font-sans: 'IBM Plex Sans Variable', ui-sans-serif, system-ui, sans-serif;
+	--font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+/*
+  One definition per token instead of a light block plus a dark block plus a
+  data-theme override of each: light-dark() resolves against the used
+  color-scheme, so the toggle only has to change that single property.
+*/
+:root {
+	color-scheme: light dark;
+
+	--paper: light-dark(#fbfbf9, #131417);
+	--paper-raised: light-dark(#ffffff, #191b1f);
+	--paper-sunk: light-dark(#f2f2ee, #0e0f11);
+	--ink: light-dark(#17181b, #e8e8e4);
+	--ink-2: light-dark(#5c5f66, #9b9ea5);
+	--ink-3: light-dark(#8e9198, #6d7077);
+	--rule: light-dark(#e4e4de, #292b30);
+	--rule-strong: light-dark(#cdcdc5, #3a3d43);
+	--ok: light-dark(#35704f, #74bd92);
+	--warn: light-dark(#8a6417, #d2a656);
+	--bad: light-dark(#9a2f2b, #dd8b84);
+	--focus: light-dark(#17181b, #e8e8e4);
+}
+
+/* Set by the toggle; absent means follow the OS. */
+:root[data-theme='light'] {
+	color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+	color-scheme: dark;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	background: var(--paper);
+}
+
+body {
+	margin: 0;
+	background: var(--paper);
+	color: var(--ink);
+	font-family: var(--font-sans);
+	font-size: 14px;
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+::selection {
+	background: var(--ink);
+	color: var(--paper);
+}
+
+:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: 2px;
+	border-radius: 1px;
+}
+
+/* ---------- type roles ---------- */
+
+/*
+  The display role is played by the mono face, not a serif. Metadata is
+  monospace everywhere it lives, so the interface speaks the subject's language.
+*/
+.eyebrow {
+	font-family: var(--font-mono);
+	font-size: 10.5px;
+	font-weight: 500;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--ink-3);
+}
+
+.label {
+	display: block;
+	font-size: 12px;
+	font-weight: 500;
+	letter-spacing: 0.005em;
+	color: var(--ink-2);
+}
+
+.hint {
+	font-size: 11.5px;
+	line-height: 1.45;
+	color: var(--ink-3);
+}
+
+.mono {
+	font-family: var(--font-mono);
+	font-size: 12px;
+	font-variant-ligatures: none;
+}
+
+/* ---------- controls ---------- */
+
+.input,
+.textarea,
+.select {
+	width: 100%;
+	display: block;
+	background: var(--paper-raised);
+	border: 1px solid var(--rule);
+	border-radius: 3px;
+	color: var(--ink);
+	font-family: var(--font-sans);
+	font-size: 13.5px;
+	line-height: 1.5;
+	padding: 7px 9px;
+	transition:
+		border-color 120ms ease,
+		background 120ms ease;
+}
+
+.input.is-mono,
+.textarea.is-mono {
+	font-family: var(--font-mono);
+	font-size: 12.5px;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+	color: var(--ink-3);
+}
+
+.input:hover,
+.textarea:hover,
+.select:hover {
+	border-color: var(--rule-strong);
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+	outline: none;
+	border-color: var(--ink);
+	box-shadow: 0 0 0 1px var(--ink);
+}
+
+.textarea {
+	resize: vertical;
+	min-height: 62px;
+}
+
+.select {
+	appearance: none;
+	padding-right: 26px;
+	background-image:
+		linear-gradient(45deg, transparent 50%, currentColor 50%),
+		linear-gradient(135deg, currentColor 50%, transparent 50%);
+	background-position:
+		calc(100% - 14px) calc(50% + 1px),
+		calc(100% - 9px) calc(50% + 1px);
+	background-size:
+		5px 5px,
+		5px 5px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	border: 1px solid var(--rule-strong);
+	background: var(--paper-raised);
+	color: var(--ink);
+	border-radius: 3px;
+	font-family: var(--font-sans);
+	font-size: 12.5px;
+	font-weight: 500;
+	line-height: 1;
+	padding: 7px 11px;
+	cursor: pointer;
+	white-space: nowrap;
+	transition:
+		background 120ms ease,
+		border-color 120ms ease,
+		color 120ms ease,
+		opacity 120ms ease;
+}
+
+.btn:hover:not(:disabled) {
+	border-color: var(--ink);
+}
+
+.btn:disabled {
+	opacity: 0.42;
+	cursor: not-allowed;
+}
+
+.btn-primary {
+	background: var(--ink);
+	border-color: var(--ink);
+	color: var(--paper);
+}
+
+.btn-primary:hover:not(:disabled) {
+	opacity: 0.86;
+}
+
+.btn-quiet {
+	border-color: transparent;
+	background: transparent;
+	color: var(--ink-2);
+	padding: 5px 7px;
+}
+
+.btn-quiet:hover:not(:disabled) {
+	background: var(--paper-sunk);
+	border-color: transparent;
+	color: var(--ink);
+}
+
+.btn-tiny {
+	font-size: 11px;
+	padding: 4px 7px;
+	font-family: var(--font-mono);
+	letter-spacing: 0.02em;
+}
+
+/* ---------- chips ---------- */
+
+/*
+  A row of mutually exclusive choices. Wraps rather than scrolls — a hidden
+  option is the same as a missing one. Shared by the export target picker and
+  the social preview platform picker.
+*/
+.chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px;
+}
+
+.chip {
+	border: 1px solid var(--rule-strong);
+	background: var(--paper-raised);
+	border-radius: 3px;
+	color: var(--ink-2);
+	cursor: pointer;
+	font-family: var(--font-mono);
+	font-size: 11px;
+	letter-spacing: 0.04em;
+	line-height: 1;
+	padding: 6px 9px;
+	white-space: nowrap;
+	transition:
+		background 120ms ease,
+		border-color 120ms ease,
+		color 120ms ease;
+}
+
+.chip:hover {
+	border-color: var(--ink);
+	color: var(--ink);
+}
+
+.chip[aria-selected='true'] {
+	background: var(--ink);
+	border-color: var(--ink);
+	color: var(--paper);
+	font-weight: 500;
+}
+
+/* ---------- flagged control ---------- */
+
+/*
+  Applied for a moment when a finding in the Checks panel is clicked, so the one
+  control that clears it is unmistakable on a dense form. The ring takes the
+  finding's own severity colour — this is a validation signal, so it earns hue.
+
+  The selector is doubled to outrank `.input:focus`, which also sets a
+  box-shadow; a plain single class would lose to it and show nothing.
+*/
+.is-flagged.is-flagged {
+	box-shadow: 0 0 0 2px var(--flag, var(--ink));
+	border-radius: 3px;
+	transition: box-shadow 200ms ease;
+}
+
+/* ---------- structure ---------- */
+
+.rule {
+	border: 0;
+	border-top: 1px solid var(--rule);
+	margin: 0;
+}
+
+.panel {
+	background: var(--paper-raised);
+	border: 1px solid var(--rule);
+	border-radius: 4px;
+}
+
+/* ---------- the measure gauge ---------- */
+
+/*
+  The signature element.
+
+  Search results truncate by pixel width, so a character counter lies. This bar
+  fills to the measured width of the string and holds a hard tick at the point
+  where the text gets cut off. Overflow is the one place ink turns amber.
+*/
+.gauge {
+	position: relative;
+	height: 3px;
+	margin-top: 6px;
+	background: var(--paper-sunk);
+	border-radius: 999px;
+	overflow: hidden;
+}
+
+.gauge-fill {
+	position: absolute;
+	inset: 0 auto 0 0;
+	background: var(--ink-3);
+	border-radius: 999px;
+	transition:
+		width 140ms ease,
+		background 140ms ease;
+}
+
+.gauge-fill[data-state='good'] {
+	background: var(--ok);
+}
+
+.gauge-fill[data-state='over'] {
+	background: var(--warn);
+}
+
+.gauge-tick {
+	position: absolute;
+	top: -2px;
+	bottom: -2px;
+	width: 1px;
+	background: var(--rule-strong);
+}
+
+.gauge-row {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	margin-top: 5px;
+}
+
+/* ---------- findings ---------- */
+
+.dot {
+	display: inline-block;
+	width: 5px;
+	height: 5px;
+	border-radius: 999px;
+	flex: none;
+	translate: 0 -1px;
+}
+
+.dot[data-severity='error'] {
+	background: var(--bad);
+}
+
+.dot[data-severity='warn'] {
+	background: var(--warn);
+}
+
+.dot[data-severity='info'] {
+	background: var(--ink-3);
+}
+
+/* ---------- code ---------- */
+
+.code {
+	font-family: var(--font-mono);
+	font-size: 12px;
+	line-height: 1.65;
+	white-space: pre;
+	tab-size: 2;
+	color: var(--ink-2);
+}
+
+.code .tok-tag {
+	color: var(--ink);
+	font-weight: 500;
+}
+
+.code .tok-attr {
+	color: var(--ink-2);
+}
+
+.code .tok-string {
+	color: var(--ink);
+}
+
+.code .tok-punct {
+	color: var(--ink-3);
+}
+
+.code .tok-comment {
+	color: var(--ink-3);
+	font-style: italic;
+}
+
+.code .tok-keyword {
+	color: var(--ink);
+	font-weight: 500;
+}
+
+/* ---------- scrollbars ---------- */
+
+.scroll-area {
+	scrollbar-width: thin;
+	scrollbar-color: var(--rule-strong) transparent;
+}
+
+.scroll-area::-webkit-scrollbar {
+	width: 9px;
+	height: 9px;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+	background: var(--rule-strong);
+	border-radius: 999px;
+	border: 3px solid var(--paper);
+}
+
+.scroll-area::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+/* ---------- previews ---------- */
+
+/* Sizes here must stay in sync with LIMITS in src/lib/seo/measure.ts. */
+.serp-title {
+	font-family: Arial, sans-serif;
+	font-size: 20px;
+	line-height: 1.3;
+	/* Google's own result-link blue, per scheme. */
+	color: light-dark(#1a0dab, #8ab4f8);
+}
+
+.serp-url {
+	font-family: Arial, sans-serif;
+	font-size: 12.5px;
+	color: var(--ink-2);
+}
+
+.serp-desc {
+	font-family: Arial, sans-serif;
+	font-size: 13px;
+	line-height: 1.58;
+	color: var(--ink-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
+	}
+}
