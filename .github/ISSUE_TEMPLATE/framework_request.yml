@@ -1,0 +1,35 @@
+name: Framework request
+description: Add an export target for a framework that isn't covered yet.
+title: 'Framework request: '
+labels: [framework-request]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Adding a target is one entry in `TARGETS` — see
+        [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md). Pull requests welcome.
+
+  - type: input
+    id: framework
+    attributes:
+      label: Framework
+      placeholder: SolidStart, Qwik City, Eleventy…
+    validations:
+      required: true
+
+  - type: textarea
+    id: idiom
+    attributes:
+      label: How it expects metadata
+      description: >
+        A link to its docs, or a snippet of what correct output looks like. The
+        point of a target is that it speaks the framework's own idiom rather
+        than pasting HTML, so this is the part that decides the work.
+    validations:
+      required: true
+
+  - type: input
+    id: filename
+    attributes:
+      label: Where the snippet goes
+      placeholder: src/routes/index.tsx

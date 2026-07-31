@@ -1,0 +1,55 @@
+name: Bug report
+description: Something produced the wrong output or behaved unexpectedly.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Most bugs here are escaping bugs, and they need the exact input to
+        reproduce. The **input** field below matters more than anything else.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you expected, and what you got instead.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: target
+    attributes:
+      label: Export target
+      description: Which framework was selected, if the bug is in the output.
+      options:
+        - Not related to the output
+        - HTML
+        - Next.js
+        - Next.js · dynamic
+        - SvelteKit
+        - Astro
+        - React Helmet
+        - Nuxt
+        - React Router
+        - JSON
+    validations:
+      required: true
+
+  - type: textarea
+    id: input
+    attributes:
+      label: The input that triggers it
+      description: >
+        The exact field values. Easiest way: switch the export target to JSON,
+        copy it, and paste it here — that is the whole document.
+      render: json
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: Firefox 141, Safari 26, Chrome 141
+    validations:
+      required: true

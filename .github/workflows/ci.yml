@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A new push to the same branch supersedes the run in flight.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install
+        run: bun install --frozen-lockfile
+
+      # Split rather than `bun run verify` so a failure names the gate that
+      # broke instead of one opaque red X.
+      - name: Types and accessibility
+        run: bun run check
+
+      - name: Lint and formatting
+        run: bun run lint
+
+      - name: Tests
+        run: bun run test
+
+      - name: Build
+        run: bun run build

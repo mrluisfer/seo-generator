@@ -1,7 +1,8 @@
 import tailwindcss from '@tailwindcss/vite';
 import adapter from '@sveltejs/adapter-auto';
 import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
+// vitest/config re-exports Vite's defineConfig widened with the `test` key.
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
 	plugins: [
@@ -18,5 +19,16 @@ export default defineConfig({
 			// See https://svelte.dev/docs/kit/adapters for more information about adapters.
 			adapter: adapter()
 		})
-	]
+	],
+
+	test: {
+		// The suite covers src/lib/seo, which is pure logic with no DOM or
+		// SvelteKit runtime dependencies — node keeps it fast.
+		environment: 'node',
+		include: ['src/**/*.{test,spec}.{js,ts}'],
+		coverage: {
+			include: ['src/lib/seo/**'],
+			reporter: ['text', 'html']
+		}
+	}
 });

@@ -1,0 +1,34 @@
+name: Feature request
+description: Suggest a capability that isn't a framework target.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do
+      description: >
+        The task, not the solution. "I need to check X before shipping" tells us
+        more than "add a button for X", and often has a simpler answer.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you have in mind
+      description: Optional. Sketches, links to prior art, or a rough shape.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Export targets
+        - Structured data (schema.org)
+        - Checks and scoring
+        - Previews
+        - AI drafting
+        - Editor / interface
+        - Something else
+    validations:
+      required: true

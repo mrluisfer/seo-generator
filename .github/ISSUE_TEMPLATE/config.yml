@@ -1,0 +1,6 @@
+blank_issues_enabled: true
+
+contact_links:
+  - name: Security issue
+    url: https://github.com/mrluisfer/seo-generator/security/advisories/new
+    about: Report privately instead of opening a public issue.
